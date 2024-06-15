@@ -3,8 +3,12 @@ import re
 import requests
 from bs4 import BeautifulSoup
 import yt_dlp as youtube_dl
-from urls import video_urls
+from urls import video_urls as single_video_urls  # Import video_urls from urls.py
+from zmack_channel_urls import video_urls as zmack_channel_urls # Import video_urls from file_name.py
 from passwords import passwords  # Import passwords from passwords.py
+
+#chose the source of the video urls
+video_urls = zmack_channel_urls
 
 def sanitize_youku_url(video_url):
     # Remove anything after '==.html'
