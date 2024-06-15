@@ -1,0 +1,1 @@
+passwords = ['zmack', 'footnotes']  # Add more passwords as needed

@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import yt_dlp as youtube_dl
 from urls import video_urls
+from passwords import passwords  # Import passwords from passwords.py
 
 def sanitize_youku_url(video_url):
     # Remove anything after '==.html'
@@ -63,7 +64,6 @@ def download_video(video_url, output_directory, passwords):
 
 def main():
     output_directory = 'downloaded_videos'
-    passwords = ['zmack', 'footnotes']  # Replace these with actual passwords, not all videos have the same password
     
     for index, video_url in enumerate(video_urls, start=1):
         print(f"Downloading video {index} of {len(video_urls)}: {video_url}")
