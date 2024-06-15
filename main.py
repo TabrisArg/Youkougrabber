@@ -3,6 +3,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 import yt_dlp as youtube_dl
+from urls import video_urls
 
 def sanitize_youku_url(video_url):
     # Remove anything after '==.html'
@@ -51,16 +52,26 @@ def download_video(video_url, output_directory, passwords):
             with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([video_url])
             print("Download successful!")
-            return  # Exit the function if download is successful
+            return True  # Exit the function if download is successful
         except youtube_dl.utils.DownloadError as e:
             print(f"Download failed with password: {password}, trying next password...")
         except Exception as e:
             print(f"An error occurred: {e}")
     
-    print("All passwords failed. Unable to download the video.")
+    print(f"All passwords failed. Unable to download the video {video_url}.")
+    return False
 
-if __name__ == "__main__":
-    video_url = input("Enter Youku video URL: ").strip()
+def main():
     output_directory = 'downloaded_videos'
     passwords = ['zmack', 'footnotes']  # Replace these with actual passwords, not all videos have the same password
-    download_video(video_url, output_directory, passwords)
+    
+    for index, video_url in enumerate(video_urls, start=1):
+        print(f"Downloading video {index} of {len(video_urls)}: {video_url}")
+        success = download_video(video_url, output_directory, passwords)
+        if not success:
+            print(f"Failed to download video {index}: {video_url}")
+    
+    print("All videos downloaded!")
+
+if __name__ == "__main__":
+    main()
