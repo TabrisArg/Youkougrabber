@@ -8,7 +8,7 @@ from zmack_channel_urls import video_urls as zmack_channel_urls # Import video_u
 from passwords import passwords  # Import passwords from passwords.py
 
 #chose the source of the video urls
-video_urls = zmack_channel_urls
+video_urls = single_video_urls
 
 def sanitize_youku_url(video_url):
     # Remove anything after '==.html'
